@@ -345,7 +345,7 @@ class oradb_asm {
       db_domain                 => lookup('oracle_database_domain_name'),
       sys_password              => lookup('oracle_database_sys_password'),
       system_password           => lookup('oracle_database_system_password'),
-      template                  => 'dbtemplate_12.1_asm',
+      # template                  => 'dbtemplate_12.1_asm',
       character_set             => 'AL32UTF8',
       nationalcharacter_set     => 'UTF8',
       sample_schema             => 'false',

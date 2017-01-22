@@ -1,3 +1,29 @@
+<%- |  String $operationType,
+       String $globaldb_name,
+       String $db_name,
+       Optional[String] $cluster_nodes,
+       String $sys_password,
+       String $system_password,
+       String $em_configuration,
+       String $db_snmp_password,
+       Optional[String] $data_file_destination,
+       Optional[String] $recovery_area_destination,
+       Optional[String] $storage_type,
+       Optional[String] $asm_diskgroup,
+       Optional[String] $asm_snmp_password,
+       Optional[String] $recovery_diskgroup,
+       String $character_set,
+       Optional[String] $nationalcharacter_set,
+       Optional[String] $sanitizedInitParams,
+       Optional[String] $sample_schema,
+       Integer $memory_percentage,
+       String $database_type,
+       Integer $memory_total,
+       Optional[Integer] $db_port,
+       Boolean $container_database
+ | -%>
+
+
 ##############################################################################
 ##                                                                          ##
 ##                            DBCA response file                            ##
@@ -57,7 +83,7 @@ RESPONSEFILE_VERSION = "12.1.0"
 # Default value : None
 # Mandatory     : Yes
 #-----------------------------------------------------------------------------
-OPERATION_TYPE = "<%= @operationType %>"
+OPERATION_TYPE = "<%= $operationType %>"
 
 #-----------------------*** End of GENERAL section ***------------------------
 
@@ -75,7 +101,7 @@ OPERATION_TYPE = "<%= @operationType %>"
 # Default value : None
 # Mandatory     : Yes
 #-----------------------------------------------------------------------------
-GDBNAME = "<%= @globaldb_name %>"
+GDBNAME = "<%= $globaldb_name %>"
 
 #-----------------------------------------------------------------------------
 # Name          : RACONENODE
@@ -202,7 +228,7 @@ GDBNAME = "<%= @globaldb_name %>"
 # Default value : <db_name> specified in Gdb_name
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-SID = "<%= @db_name %>"
+SID = "<%= $db_name %>"
 
 #-----------------------------------------------------------------------------
 # Name          : CREATEASCONTAINERDATABASE
@@ -212,7 +238,7 @@ SID = "<%= @db_name %>"
 # Default value : false
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-CREATEASCONTAINERDATABASE = <%= @container_database %>
+CREATEASCONTAINERDATABASE = <%= $container_database %>
 
 #-----------------------------------------------------------------------------
 # Name          : NUMBEROFPDBS
@@ -243,7 +269,7 @@ CREATEASCONTAINERDATABASE = <%= @container_database %>
 # Default value : None
 # Mandatory     : No (Yes for RAC database-centric database )
 #-----------------------------------------------------------------------------
-NODELIST=<%= @cluster_nodes %>
+NODELIST=<%= $cluster_nodes %>
 
 #-----------------------------------------------------------------------------
 # Name          : TEMPLATENAME
@@ -274,7 +300,7 @@ TEMPLATENAME = "General_Purpose.dbc"
 # Default value : None
 # Mandatory     : Yes
 #-----------------------------------------------------------------------------
-SYSPASSWORD = "<%= @sys_password %>"
+SYSPASSWORD = "<%= $sys_password %>"
 
 #-----------------------------------------------------------------------------
 # Name          : system_password
@@ -284,7 +310,7 @@ SYSPASSWORD = "<%= @sys_password %>"
 # Default value : None
 # Mandatory     : Yes
 #-----------------------------------------------------------------------------
-SYSTEMPASSWORD = "<%= @system_password %>"
+SYSTEMPASSWORD = "<%= $system_password %>"
 
 #-----------------------------------------------------------------------------
 # Name          : SERVICEUSERPASSWORD
@@ -303,7 +329,7 @@ SYSTEMPASSWORD = "<%= @system_password %>"
 # Default value : NONE
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-EMCONFIGURATION = "<%= @em_configuration %>"
+EMCONFIGURATION = "<%= $em_configuration %>"
 
 #-----------------------------------------------------------------------------
 # Name          : SYSMANPASSWORD
@@ -324,7 +350,7 @@ EMCONFIGURATION = "<%= @em_configuration %>"
 # Mandatory     : Yes, if em_configuration is specified
 #-----------------------------------------------------------------------------
 #DBSNMPPASSWORD = "password"
-DBSNMPPASSWORD = "<%= @db_snmp_password %>"
+DBSNMPPASSWORD = "<%= $db_snmp_password %>"
 
 #-----------------------------------------------------------------------------
 # Name          : CENTRALAGENT
@@ -440,7 +466,7 @@ DBSNMPPASSWORD = "<%= @db_snmp_password %>"
 # Default value : $ORACLE_BASE/oradata
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-DATAFILEDESTINATION ="<%= @data_file_destination %>"
+DATAFILEDESTINATION ="<%= $data_file_destination %>"
 
 #-----------------------------------------------------------------------------
 # Name          : recovery_area_destination
@@ -450,7 +476,7 @@ DATAFILEDESTINATION ="<%= @data_file_destination %>"
 # Default value : $ORACLE_BASE/flash_recovery_area
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-RECOVERYAREADESTINATION="<%= @recovery_area_destination %>"
+RECOVERYAREADESTINATION="<%= $recovery_area_destination %>"
 
 #-----------------------------------------------------------------------------
 # Name          : storage_type
@@ -460,7 +486,7 @@ RECOVERYAREADESTINATION="<%= @recovery_area_destination %>"
 # Default value : FS
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-STORAGETYPE=<%= @storage_type %>
+STORAGETYPE=<%= $storage_type %>
 
 #-----------------------------------------------------------------------------
 # Name          : DISKGROUPNAME
@@ -469,7 +495,7 @@ STORAGETYPE=<%= @storage_type %>
 # Default value : DATA
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-DISKGROUPNAME=<%= @asm_diskgroup %>
+DISKGROUPNAME=<%= $asm_diskgroup %>
 
 #-----------------------------------------------------------------------------
 # Name          : ASMSNMP_PASSWORD
@@ -478,7 +504,7 @@ DISKGROUPNAME=<%= @asm_diskgroup %>
 # Default value : None
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-ASMSNMP_PASSWORD=<%= @asm_snmp_password %>
+ASMSNMP_PASSWORD=<%= $asm_snmp_password %>
 
 #-----------------------------------------------------------------------------
 # Name          : RECOVERYGROUPNAME
@@ -487,7 +513,7 @@ ASMSNMP_PASSWORD=<%= @asm_snmp_password %>
 # Default value : RECOVERY
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-RECOVERYGROUPNAME=<%= @recovery_diskgroup %>
+RECOVERYGROUPNAME=<%= $recovery_diskgroup %>
 
 
 #-----------------------------------------------------------------------------
@@ -498,7 +524,7 @@ RECOVERYGROUPNAME=<%= @recovery_diskgroup %>
 # Default value : "US7ASCII"
 # Mandatory     : NO
 #-----------------------------------------------------------------------------
-CHARACTERSET = "<%= @character_set %>"
+CHARACTERSET = "<%= $character_set %>"
 
 #-----------------------------------------------------------------------------
 # Name          : NATIONALcharacter_set
@@ -508,7 +534,7 @@ CHARACTERSET = "<%= @character_set %>"
 # Default value : "AL16UTF16"
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-NATIONALCHARACTERSET= "<%= @nationalcharacter_set %>"
+NATIONALCHARACTERSET= "<%= $nationalcharacter_set %>"
 
 #-----------------------------------------------------------------------------
 # Name          : REGISTERWITHDIRSERVICE
@@ -584,7 +610,7 @@ NATIONALCHARACTERSET= "<%= @nationalcharacter_set %>"
 # Default value : None
 # Mandatory     : NO
 #-----------------------------------------------------------------------------
-INITPARAMS ="<%= @sanitizedInitParams %>"
+INITPARAMS ="<%= $sanitizedInitParams %>"
 
 #-----------------------------------------------------------------------------
 # Name          : sample_schema
@@ -594,7 +620,7 @@ INITPARAMS ="<%= @sanitizedInitParams %>"
 # Default value : FASLE
 # Mandatory     : No
 #-----------------------------------------------------------------------------
-SAMPLESCHEMA="<%= @sample_schema %>"
+SAMPLESCHEMA="<%= $sample_schema %>"
 
 #-----------------------------------------------------------------------------
 # Name          : memory_percentage
@@ -603,7 +629,7 @@ SAMPLESCHEMA="<%= @sample_schema %>"
 # Default value : None
 # Mandatory     : NO
 #-----------------------------------------------------------------------------
-MEMORYPERCENTAGE = "<%= @memory_percentage %>"
+MEMORYPERCENTAGE = "<%= $memory_percentage %>"
 
 #-----------------------------------------------------------------------------
 # Name          : database_type
@@ -613,7 +639,7 @@ MEMORYPERCENTAGE = "<%= @memory_percentage %>"
 # Default value : MULTIPURPOSE
 # Mandatory     : NO
 #-----------------------------------------------------------------------------
-DATABASETYPE = "<%= @database_type %>"
+DATABASETYPE = "<%= $database_type %>"
 
 #-----------------------------------------------------------------------------
 # Name          : AUTOMATICMEMORYMANAGEMENT
@@ -633,7 +659,7 @@ DATABASETYPE = "<%= @database_type %>"
 # Default value :
 # Mandatory     : NO
 #-----------------------------------------------------------------------------
-TOTALMEMORY = "<%= @memory_total %>"
+TOTALMEMORY = "<%= $memory_total %>"
 
 
 #-----------------------*** End of CREATEDATABASE section ***------------------------
@@ -650,7 +676,7 @@ TOTALMEMORY = "<%= @memory_total %>"
 # Default value : none
 # Mandatory     : YES
 #-----------------------------------------------------------------------------
-SOURCEDB = "myhost:<%= @db_port %>:orcl"
+SOURCEDB = "myhost:<%= $db_port %>:orcl"
 
 #-----------------------------------------------------------------------------
 # Name          : SYSDBAUSERNAME
@@ -748,7 +774,7 @@ TEMPLATENAME = "My Clone TEMPLATE"
 # Default value : none
 # Mandatory     : YES
 #-----------------------------------------------------------------------------
-SOURCEDB = "<%= @db_name %>"
+SOURCEDB = "<%= $db_name %>"
 
 #-----------------------------------------------------------------------------
 # Name          : SYSDBAUSERNAME
@@ -767,7 +793,7 @@ SYSDBAUSERNAME = "sys"
 # Default value : none
 # Mandatory     : YES, if no OS authentication
 #-----------------------------------------------------------------------------
-SYSDBAPASSWORD = "<%= @sys_password %>"
+SYSDBAPASSWORD = "<%= $sys_password %>"
 #-----------------------*** End of deleteDatabase section ***------------------------
 
 #-----------------------------------------------------------------------------
@@ -938,7 +964,7 @@ GDBNAME = "orcl12.us.oracle.com"
 # Default value : None
 # Mandatory     : Yes, if em_configuration is specified
 #-----------------------------------------------------------------------------
-DBSNMPPASSWORD = "<%= @db_snmp_password %>"
+DBSNMPPASSWORD = "<%= $db_snmp_password %>"
 
 #-----------------------------------------------------------------------------
 # Name          : CENTRALAGENT

@@ -18,7 +18,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     dbasm.vm.hostname = "dbasm.example.com"
     dbasm.vm.synced_folder ".", "/vagrant", :mount_options => ["dmode=777","fmode=777"]
-    dbasm.vm.synced_folder "/Users/edwin/software", "/software"
+    dbasm.vm.synced_folder "/Users/edwinbiemond/software", "/software"
 
     dbasm.vm.network :private_network, ip: "10.10.10.7"
 
