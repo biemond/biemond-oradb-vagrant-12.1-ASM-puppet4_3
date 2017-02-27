@@ -12,7 +12,7 @@ class oradb_asm_os {
   # swap_file::files { 'swap_file_custom':
   #   ensure       => present,
   #   swapfilesize => '6.0 GB',
-  #   swapfile     => '/tmp/swapfile.custom',
+  #   swapfile     => '/data/swapfile.custom',
   # }
 
   # set the tmpfs
@@ -244,6 +244,7 @@ class oradb_asm {
       disk_redundancy        => 'EXTERNAL',
       remote_file            => false,
       puppet_download_mnt_point => lookup('oracle_source'),
+      download_dir              => lookup('oracle_download_dir'),
     }
 
     oradb::opatchupgrade{'121000_opatch_upgrade_asm':

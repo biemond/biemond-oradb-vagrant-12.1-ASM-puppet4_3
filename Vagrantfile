@@ -15,7 +15,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       override.vm.box = "OEL7_2-x86_64-vmware"
       override.vm.box_url = "https://dl.dropboxusercontent.com/s/ymr62ku2vjjdhup/OEL7_2-x86_64-vmware.box"
     end
-
+    
     dbasm.vm.hostname = "dbasm.example.com"
     dbasm.vm.synced_folder ".", "/vagrant", :mount_options => ["dmode=777","fmode=777"]
     dbasm.vm.synced_folder "/Users/edwinbiemond/software", "/software"
