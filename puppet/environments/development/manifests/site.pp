@@ -9,11 +9,11 @@ Package{allow_virtual => false,}
 # operating settings for Database & Middleware
 class oradb_asm_os {
 
-  # swap_file::files { 'swap_file_custom':
-  #   ensure       => present,
-  #   swapfilesize => '6.0 GB',
-  #   swapfile     => '/data/swapfile.custom',
-  # }
+  swap_file::files { 'swap_file_custom':
+    ensure       => present,
+    swapfilesize => '6.0 GB',
+    swapfile     => '/data/swapfile.custom',
+  }
 
   # set the tmpfs
   mount { '/dev/shm':

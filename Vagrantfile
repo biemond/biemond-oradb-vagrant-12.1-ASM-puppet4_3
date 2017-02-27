@@ -8,12 +8,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define "dbasm", primary: true do |dbasm|
 
-    dbasm.vm.box = "OEL7_2-x86_64"
-    dbasm.vm.box_url = "https://dl.dropboxusercontent.com/s/0yz6r876qkps68i/OEL7_2-x86_64.box"
+    dbasm.vm.box = "centos-7-1611-x86_64"
+    dbasm.vm.box_url = "https://dl.dropboxusercontent.com/s/e7o5lvlpletkp2i/centos-7-1611-x86_64.box"
 
     dbasm.vm.provider :vmware_fusion do |v, override|
-      override.vm.box = "OEL7_2-x86_64-vmware"
-      override.vm.box_url = "https://dl.dropboxusercontent.com/s/ymr62ku2vjjdhup/OEL7_2-x86_64-vmware.box"
+      override.vm.box = "centos-7-1611-x86_64-vmware"
+      override.vm.box_url = "https://dl.dropboxusercontent.com/s/6hqh2ntbiyu3srt/centos-7-1611-x86_64-vmware.box"
     end
     
     dbasm.vm.hostname = "dbasm.example.com"
