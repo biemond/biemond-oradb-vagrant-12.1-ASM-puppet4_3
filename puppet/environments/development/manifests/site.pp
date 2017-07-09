@@ -250,27 +250,25 @@ class oradb_asm {
     oradb::opatchupgrade{'121000_opatch_upgrade_asm':
       oracle_home               => lookup('grid_home_dir'),
       patch_file                => 'p6880880_121010_Linux-x86-64.zip',
-      csi_number                => undef,
-      support_id                => undef,
-      opversion                 => '12.1.0.1.9',
+      opversion                 => '12.2.0.1.9',
       user                      => lookup('grid_os_user'),
       group                     => 'oinstall',
       puppet_download_mnt_point => lookup('oracle_source'),
       require                   => Oradb::Installasm['db_linux-x64'],
     }
 
-    oradb::opatch{'21523260_grid_patch':
+    oradb::opatch{'25434003_grid_patch':
       ensure                    => 'present',
       oracle_product_home       => lookup('grid_home_dir'),
-      patch_id                  => '21523260',
-      patch_file                => 'p21523260_121020_Linux-x86-64.zip',
+      patch_id                  => '25434003',
+      patch_file                => 'p25434003_121020_Linux-x86-64.zip',
       clusterware               => true,
       use_opatchauto_utility    => true,
-      bundle_sub_patch_id       => '21359755', # sub patch_id of bundle patch ( else I can't detect it)
+      bundle_sub_patch_id       => '25171037', # sub patch_id of bundle patch ( else I can't detect it)
       user                      => lookup('grid_os_user'),
       group                     => 'oinstall',
       download_dir              => lookup('oracle_download_dir'),
-      ocmrf                     => true,
+      ocmrf                     => false,
       puppet_download_mnt_point => lookup('oracle_source'),
       require                   => Oradb::Opatchupgrade['121000_opatch_upgrade_asm'],
     }
@@ -290,15 +288,13 @@ class oradb_asm {
       download_dir           => lookup('oracle_download_dir'),
       remote_file            => false,
       puppet_download_mnt_point => lookup('oracle_source'),
-      require                => Oradb::Opatch['21523260_grid_patch'],
+      require                => Oradb::Opatch['25434003_grid_patch'],
     }
 
     oradb::opatchupgrade{'121000_opatch_upgrade_db':
       oracle_home               => lookup('oracle_home_dir'),
       patch_file                => 'p6880880_121010_Linux-x86-64.zip',
-      csi_number                => undef,
-      support_id                => undef,
-      opversion                 => '12.1.0.1.9',
+      opversion                 => '12.2.0.1.9',
       user                      => lookup('oracle_os_user'),
       group                     => lookup('oracle_os_group'),
       download_dir              => lookup('oracle_download_dir'),
@@ -306,19 +302,17 @@ class oradb_asm {
       require                   => Oradb::Installdb['db_linux-x64'],
     }
 
-    oradb::opatch{'21523260_db_patch':
+    oradb::opatch{'25171037_db_patch':
       ensure                    => 'present',
       oracle_product_home       => lookup('oracle_home_dir'),
-      patch_id                  => '21523260',
-      patch_file                => 'p21523260_121020_Linux-x86-64.zip',
-      clusterware               => true,
-      use_opatchauto_utility    => true,
-      bundle_sub_patch_id       => '21359755',
+      patch_id                  => '25171037',
+      patch_file                => 'p25171037_121020_Linux-x86-64.zip',
+      ocmrf                     => false,
+      use_opatchauto_utility    => false, 
+      puppet_download_mnt_point => lookup('oracle_source'),
       user                      => lookup('oracle_os_user'),
       group                     => 'oinstall',
       download_dir              => lookup('oracle_download_dir'),
-      ocmrf                     => true,
-      puppet_download_mnt_point => lookup('oracle_source'),
       require                   => Oradb::Opatchupgrade['121000_opatch_upgrade_db'],
     }
 
@@ -331,7 +325,7 @@ class oradb_asm {
       disks           => {'RECO_0000' => {'diskname' => 'RECO_0000', 'path' => '/nfs_client/asm_sda_nfs_b3'},
                           'RECO_0001' => {'diskname' => 'RECO_0001', 'path' => '/nfs_client/asm_sda_nfs_b4'}},
       redundancy_type => 'EXTERNAL',
-      require         => Oradb::Opatch['21523260_db_patch'],
+      require         => Oradb::Opatch['25171037_db_patch'],
     }
 
     oradb::database{ 'oraDb':
@@ -360,7 +354,7 @@ class oradb_asm {
       recovery_diskgroup        => 'RECO',
       recovery_area_destination => 'RECO',
       puppet_download_mnt_point => 'oradb/',
-      require                   => [Oradb::Opatch['21523260_db_patch'],
+      require                   => [Oradb::Opatch['25171037_db_patch'],
                                     Ora_asm_diskgroup['RECO@+ASM'],],
     }
 
